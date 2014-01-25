@@ -13,7 +13,10 @@ namespace FLVtoMP3
 {
     class PoolManager
     {
+        public static string Directory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%\\Music");
+        public static int Threads = 0;
         public static List<Thread> threadList = new List<Thread>();
+
         public static void AddThread(string URL, string FILENAME)
         {
             if (!(URL == "") && !(FILENAME == ""))
@@ -21,6 +24,7 @@ namespace FLVtoMP3
                 string DATA = URL + "|" + FILENAME;
                 threadList.Add(new Thread(() => doSomething(DATA)));
                 threadList[threadList.Count - 1].Start();
+                Threads++;
             }
         }
 
@@ -31,7 +35,6 @@ namespace FLVtoMP3
             URL = arr[0];
             FILENAME = arr[1];
             
-            string Directory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%\\Music");
             WebClient wc = new WebClient();
             string Content = wc.DownloadString(URL);
 
@@ -60,10 +63,12 @@ namespace FLVtoMP3
                 fs.Close();
 
                 File.Delete(tempFile);
+                Threads--;
             }
             catch (Exception Ex)
             {
-                MessageBox.Show("This video could not be downloaded due to copyright restrictions, please find an alternative. You'll likely find videos by the same artist are all protected in this fashion. I am trying to find a workaround so do stay up to date.");
+                MessageBox.Show("This video could not be downloaded due to copyright restrictions, please find an alternative. You'll likely find videos by the same artist are all protected in this fashion. I am trying to find a workaround so do stay up to date.\n\n" + Ex.Message);
+                Threads--;
             }
         }
     }

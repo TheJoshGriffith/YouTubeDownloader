@@ -24,15 +24,7 @@ namespace FLVtoMP3
             {
                 while (true)
                 { 
-                    int count = 0;
-                    foreach (Thread th in PoolManager.threadList)
-                    {
-                        if (th.IsAlive)
-                        {
-                            count++;
-                        }
-                    }
-                    activeThreads.Text = Convert.ToString(count);
+                    activeThreads.Text = Convert.ToString(PoolManager.Threads);
                 }
             });
             UpdateThreadCount.Start();
@@ -48,35 +40,6 @@ namespace FLVtoMP3
             {
                 MessageBox.Show("Your link did not have the correct format, please use this format for all links:\n\nhttp://www.youtube.com/ABCDEFGHIJ\n\nIf you entered the link correctly please contact support. Note that everything is crucial from http to the slashes and dots.");
             }
-            
-            /* ORIGINAL CODE
-             * 
-             * 
-            string Directory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
-            WebClient wc = new WebClient();
-            string Content = wc.DownloadString(textBox1.Text);
-
-            List<string> strl = Downloader.ExtractUrls(Content);
-
-            string fileToDownload = Downloader.GetFLV(strl);
-
-            byte[] dat = wc.DownloadData(fileToDownload);
-
-            string tempFile = Directory + "\\" + textBox2.Text + ".flv";
-
-            FileStream flvfw = new FileStream(tempFile, FileMode.OpenOrCreate);
-
-            flvfw.Write(dat, 0, dat.Length);
-            flvfw.Flush();
-            flvfw.Close();
-
-            FileStream fs = new FileStream(tempFile, FileMode.Open);
-            FileStream fw = new FileStream(Directory + "\\" + textBox2.Text + ".wav", FileMode.OpenOrCreate);
-            byte[] data = FLVMP3.ExtractAudio(fs);
-            fw.Write(data, 0, data.Length);
-            fw.Flush();
-            fw.Close();
-             * */
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
@@ -111,6 +74,35 @@ namespace FLVtoMP3
         private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
         {
             MessageBox.Show("This software was written for educational purposes by XtrmJosh.\n\nFor more information about me and my projects, visit my website at www.joshgriffith.co.uk.");
+        }
+
+        private void selectOutputDirectory_ButtonClick(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowNewFolderButton = true;
+            fbd.Description = "Select a folder to save your audio tracks to.";
+            DialogResult dr = fbd.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK || dr == System.Windows.Forms.DialogResult.Yes)
+            {
+                PoolManager.Directory = fbd.SelectedPath;
+            }
+            
+        }
+
+        private void textBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(null, null);
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(null, null);
+            }
         }
     }
 }

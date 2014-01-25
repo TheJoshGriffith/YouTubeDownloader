@@ -36,6 +36,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeThreads = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
+            this.selectOutputDirectory = new System.Windows.Forms.ToolStripSplitButton();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +58,7 @@
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "[Enter YouTube URL]";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // textBox2
             // 
@@ -67,13 +69,15 @@
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "[Enter Song Name]";
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
+            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.activeThreads,
-            this.toolStripSplitButton1});
+            this.toolStripSplitButton1,
+            this.selectOutputDirectory});
             this.statusStrip1.Location = new System.Drawing.Point(0, 73);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(317, 22);
@@ -101,7 +105,20 @@
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(21, 20);
             this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+            this.toolStripSplitButton1.ToolTipText = "Information";
             this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
+            // 
+            // selectOutputDirectory
+            // 
+            this.selectOutputDirectory.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.selectOutputDirectory.DropDownButtonWidth = 0;
+            this.selectOutputDirectory.Image = ((System.Drawing.Image)(resources.GetObject("selectOutputDirectory.Image")));
+            this.selectOutputDirectory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.selectOutputDirectory.Name = "selectOutputDirectory";
+            this.selectOutputDirectory.Size = new System.Drawing.Size(21, 20);
+            this.selectOutputDirectory.Text = "toolStripSplitButton2";
+            this.selectOutputDirectory.ToolTipText = "Select a folder to save your audio files to";
+            this.selectOutputDirectory.ButtonClick += new System.EventHandler(this.selectOutputDirectory_ButtonClick);
             // 
             // Form1
             // 
@@ -136,6 +153,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel activeThreads;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
+        private System.Windows.Forms.ToolStripSplitButton selectOutputDirectory;
     }
 }
 
