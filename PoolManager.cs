@@ -30,7 +30,7 @@ namespace FLVtoMP3
             URL = arr[0];
             FILENAME = arr[1];
             
-            string Directory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+            string Directory = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%\\Music");
             WebClient wc = new WebClient();
             string Content = wc.DownloadString(URL);
 
