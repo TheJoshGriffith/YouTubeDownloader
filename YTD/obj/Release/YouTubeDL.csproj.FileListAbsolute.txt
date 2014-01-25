@@ -1,0 +1,9 @@
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\YouTubeDL.csprojResolveAssemblyReference.cache
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\FLVtoMP3.Form1.resources
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\FLVtoMP3.Properties.Resources.resources
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\YouTubeDL.csproj.GenerateResource.Cache
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\bin\Release\YouTube Downloader.exe.config
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\bin\Release\YouTube Downloader.exe
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\bin\Release\YouTube Downloader.pdb
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\YouTube Downloader.exe
+C:\Users\Joshua\Documents\GitHub\YouTubeDownloader\obj\Release\YouTube Downloader.pdb
