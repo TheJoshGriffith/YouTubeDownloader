@@ -15,14 +15,23 @@ namespace FLVtoMP3
 {
     public partial class Form1 : Form
     {
+        public static Thread UpdateThreadCount;
         public Form1()
         {
             InitializeComponent();
-            Thread UpdateThreadCount = new Thread(delegate()
+            UpdateThreadCount = new Thread(delegate()
             {
                 while (true)
                 { 
-                    activeThreads.Text = Convert.ToString(PoolManager.threadList.Count());
+                    int count = 0;
+                    foreach (Thread th in PoolManager.threadList)
+                    {
+                        if (th.IsAlive)
+                        {
+                            count++;
+                        }
+                    }
+                    activeThreads.Text = Convert.ToString(count);
                 }
             });
             UpdateThreadCount.Start();
@@ -30,7 +39,14 @@ namespace FLVtoMP3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PoolManager.AddThread(textBox1.Text, textBox2.Text);
+            if (textBox1.Text.Contains("http://"))
+            {
+                PoolManager.AddThread(textBox1.Text, textBox2.Text);
+            }
+            else
+            {
+                MessageBox.Show("Your link did not have the correct format, please use this format for all links:\n\nhttp://www.youtube.com/ABCDEFGHIJ\n\nIf you entered the link correctly please contact support. Note that everything is crucial from http to the slashes and dots.");
+            }
             
             /* ORIGINAL CODE
              * 
@@ -76,6 +92,24 @@ namespace FLVtoMP3
             {
                 textBox1.Clear();
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            UpdateThreadCount.Abort();
+            foreach (Thread th in PoolManager.threadList)
+            {
+                if (th.IsAlive)
+                {
+                    MessageBox.Show("You have at least one download pending, program will exit upon completition.");
+                    th.Join();
+                }
+            }
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            MessageBox.Show("This software was written for educational purposes by XtrmJosh.\n\nFor more information about me and my projects, visit my website at www.joshgriffith.co.uk.");
         }
     }
 }

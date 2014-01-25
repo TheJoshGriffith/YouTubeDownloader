@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace FLVtoMP3
 {
@@ -38,25 +39,32 @@ namespace FLVtoMP3
 
             string fileToDownload = Downloader.GetFLV(strl);
 
-            byte[] dat = wc.DownloadData(fileToDownload);
+            try
+            {
+                byte[] dat = wc.DownloadData(fileToDownload);
 
-            string tempFile = Directory + "\\" + FILENAME + ".flv";
+                string tempFile = Directory + "\\" + FILENAME + ".flv";
 
-            FileStream flvfw = new FileStream(tempFile, FileMode.OpenOrCreate);
+                FileStream flvfw = new FileStream(tempFile, FileMode.OpenOrCreate);
 
-            flvfw.Write(dat, 0, dat.Length);
-            flvfw.Flush();
-            flvfw.Close();
+                flvfw.Write(dat, 0, dat.Length);
+                flvfw.Flush();
+                flvfw.Close();
 
-            FileStream fs = new FileStream(tempFile, FileMode.Open);
-            FileStream fw = new FileStream(Directory + "\\" + FILENAME + ".mp3", FileMode.OpenOrCreate);
-            byte[] data = FLVMP3.ExtractAudio(fs);
-            fw.Write(data, 0, data.Length);
-            fw.Flush();
-            fw.Close();
-            fs.Close();
+                FileStream fs = new FileStream(tempFile, FileMode.Open);
+                FileStream fw = new FileStream(Directory + "\\" + FILENAME + ".mp3", FileMode.OpenOrCreate);
+                byte[] data = FLVMP3.ExtractAudio(fs);
+                fw.Write(data, 0, data.Length);
+                fw.Flush();
+                fw.Close();
+                fs.Close();
 
-            File.Delete(tempFile);
+                File.Delete(tempFile);
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show("This video could not be downloaded due to copyright restrictions, please find an alternative. You'll likely find videos by the same artist are all protected in this fashion. I am trying to find a workaround so do stay up to date.");
+            }
         }
     }
 }
