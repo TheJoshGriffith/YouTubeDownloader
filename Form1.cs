@@ -19,6 +19,7 @@ namespace FLVtoMP3
         public Form1()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             UpdateThreadCount = new Thread(delegate()
             {
                 while (true)
